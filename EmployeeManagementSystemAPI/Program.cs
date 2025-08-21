@@ -1,11 +1,19 @@
+using EmployeeManagementSystemAPI.DBContext;
+using EmployeeManagementSystemAPI.Extensions;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<CvlContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Cvl")));
+builder.Services.AddAutoMapper(typeof(AutomapperProfile)); // Register AutoMapper with the AutomapperProfile
+builder.Services.AddServiceExtensions();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
